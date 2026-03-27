@@ -6,7 +6,7 @@
 |------|--------|
 | 1 | **Check disk usage & partitions**  <br> ```bash df -h ``` <br> ```bash lsblk ``` |
 | 2 | **Check NGINX logs & cache** <br><br> **Log size** <br> ```bash du -sh /var/log/nginx/* ``` <br><br> **Cache / Temp** <br> ```bash du -sh /var/cache/nginx/ 2>/dev/null ``` <br> ```bash du -sh /tmp/ ``` <br><br> **NGINX status** <br> ```bash systemctl status nginx ``` |
-| 3 | **Check deleted but still open files** <br> ```bash lsof | grep deleted ``` |
+| 3 | **Check deleted but still open files** <br> ```bash lsof | grep deleted ``` <br>|
 
 ---
 
