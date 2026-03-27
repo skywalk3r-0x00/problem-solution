@@ -13,5 +13,5 @@
 | No | Cause | Impact | Recovery |
 |----|-------|--------|----------|
 | 1 | Log rotation config missing | Disk fills | `user@user: logrotate -f /etc/logrotate.d/nginx` |
-| 2 | Verbose or Debug log enabled | Disk fills | Set log to warn or error<br><br>```bash<br># /etc/nginx/nginx.conf<br>error_log /var/log/nginx/error.log warn;<br>systemctl reload nginx<br>``` |
+| 2 | Verbose / Debug logging enabled | Log grows rapidly | Set log level to `warn` or `error` <br><br> ```bash # Edit config /etc/nginx/nginx.conf ``` <br> ```bash /var/log/nginx/error.log warn; ``` <br> ```bash systemctl reload nginx ``` |
 | 3 | Deleted files still consuming | Disk space is not actually freed | Make nginx reopen files:<br>`user@user: nginx -s reopen`<br><br>Then verify:<br>`user@user: df -h` |
