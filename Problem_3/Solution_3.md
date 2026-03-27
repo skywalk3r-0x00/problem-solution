@@ -6,7 +6,7 @@
 |-------|---------|
 | 1 | **Check disk usage which partition is full**<br>`user@user: df -h`<br>`user@user: lsblk` |
 | 2 | **Check nginx log size**<br>`user@user: du -sh /var/log/nginx/*`<br><br>**Check temp/cache**<br>`user@user: du -sh /var/cache/nginx/ 2>/dev/null`<br>`user@user: du -sh /tmp/`<br><br>**Check nginx status**<br>`user@user: systemctl status nginx` |
-| 3 | **Check deleted but still open files**<br>`user@user: lsof | grep deleted` |
+| 3 | **Check deleted but still open files**<br>`user@user: lsof \| grep deleted` |
 
 ## Expected Causes/Scenarios and Fixes
 
