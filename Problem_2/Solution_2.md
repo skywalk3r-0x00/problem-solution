@@ -2,7 +2,7 @@
 
 > Source: `/Problem_2`
 
-![Architecture Diagram](./images/Solution_architect.svg)
+![Architecture Diagram](./Solution_architect.svg)
 
 # System Architecture Overview
 
