@@ -1,39 +1,17 @@
-# Troubleshooting High Disk Usage (NGINX VM)
+# Troubleshooting Guide: Nginx Disk Space Issues
 
-## 1. Troubleshooting Steps
+## How to Troubleshoot the Issue
 
-| Step | Actions |
-|------|--------|
-| 1 | **Check disk usage & partitions**  <br> ```bash df -h ``` <br> ```bash lsblk ``` |
-| 2 | **Check NGINX logs & cache** <br><br> **Log size** <br> ```bash du -sh /var/log/nginx/* ``` <br><br> **Cache / Temp** <br> ```bash du -sh /var/cache/nginx/ 2>/dev/null ``` <br> ```bash du -sh /tmp/ ``` <br><br> **NGINX status** <br> ```bash systemctl status nginx ``` |
-| 3 | **Check deleted but still open files** <br> ```bash lsof | grep deleted ``` |
+| Steps | Actions |
+|-------|---------|
+| 1 | **Check disk usage which partition is full**<br>`user@user: df -h`<br>`user@user: lsblk` |
+| 2 | **Check nginx log size**<br>`user@user: du -sh /var/log/nginx/*`<br><br>**Check temp/cache**<br>`user@user: du -sh /var/cache/nginx/ 2>/dev/null`<br>`user@user: du -sh /tmp/`<br><br>**Check nginx status**<br>`user@user: systemctl status nginx` |
+| 3 | **Check deleted but still open files**<br>`user@user: lsof | grep deleted` |
 
----
-
-## 2. Expected Causes & Fixes
+## Expected Causes/Scenarios and Fixes
 
 | No | Cause | Impact | Recovery |
-|----|------|--------|----------|
-| 1 | Log rotation not configured | Disk gets full over time | ```bash logrotate -f /etc/logrotate.d/nginx ``` |
-| 2 | Verbose / Debug logging enabled | Log grows rapidly | Set log level to `warn` or `error` <br><br> ```bash # Edit config /etc/nginx/nginx.conf ``` <br> ```bash /var/log/nginx/error.log warn; ``` <br> ```bash systemctl reload nginx ``` |
-| 3 | Deleted files still held by process | Disk space not actually freed | Reopen file handles <br><br> ```bash nginx -s reopen ``` <br><br> Verify: <br> ```bash df -h ``` |
-
----
-
-## 3. Key Observations
-
-- Disk full does **not always mean visible files are large**
-- Logs are the most common root cause in NGINX-only systems
-- “Phantom usage” often comes from deleted-but-open files
-- Always verify after fix using `df -h`
-
----
-
-## 4. Best Practices (Prevention)
-
-- Enable **logrotate** with retention policy  
-- Avoid **debug logging in production**  
-- Monitor disk usage via **CloudWatch / Prometheus**  
-- Set alert threshold at **70–80% usage**  
-
----
+|----|-------|--------|----------|
+| 1 | Log rotation config missing | Disk fills | `user@user: logrotate -f /etc/logrotate.d/nginx` |
+| 2 | Verbose or Debug log enabled | Disk fills | Set log to warn or error<br><br>```bash<br># /etc/nginx/nginx.conf<br>error_log /var/log/nginx/error.log warn;<br>systemctl reload nginx<br>``` |
+| 3 | Deleted files still consuming | Disk space is not actually freed | Make nginx reopen files:<br>`user@user: nginx -s reopen`<br><br>Then verify:<br>`user@user: df -h` |
