@@ -38,7 +38,7 @@
 
 ## 3. Scaling Plan
 
-| 🟦 Baseline (500 RPS) | 🟥 Scale-out (5000 RPS) |
+| Baseline (500 RPS) | Scale-out (5000 RPS) |
 |----------------------|------------------------|
 | **Compute** <br> - 3 EKS pods / service / AZ <br><br> **Streaming** <br> - MSK: 3 brokers, 9 partitions <br><br> **Database** <br> - Aurora: primary + 2 replicas <br> - Redis: r6g.large <br><br> **Matching Engine** <br> - c6i.2xlarge <br><br> **Cost** <br> ~$8k–12k/month | **Compute** <br> - HPA: 3 → 30 pods <br><br> **Streaming** <br> - MSK: 3 → 9 brokers <br> - Partitions: 9 → 90 <br><br> **Database** <br> - Aurora replicas: 2 → 10 <br><br> **Matching Engine** <br> - c6i.8xlarge |
 
