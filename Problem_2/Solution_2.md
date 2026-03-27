@@ -1,7 +1,5 @@
 ## System Architecture Diagram
 
-> Source: `/Problem_2`
-
 ![Architecture Diagram](./Solution_architect.svg)
 
 # System Architecture Overview
