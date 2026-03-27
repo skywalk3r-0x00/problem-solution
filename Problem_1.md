@@ -3,9 +3,8 @@
 ## Command
 
 ```bash
-grep '"symbol": "TSLA".*"side": "sell"' ./
-transcation-log.txt \
+grep '"symbol": "TSLA".*"side": "sell"' ./transaction-log.txt \
   | grep -o '"order_id": "[^"]*"' \
   | sed 's/"order_id": "//;s/"//' \
   | xargs -I {} curl -s "https://example.com/api/{}" \
-    >> ./output.txt
+  >> ./output.txt
