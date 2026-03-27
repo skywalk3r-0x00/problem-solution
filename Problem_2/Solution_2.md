@@ -38,24 +38,9 @@
 
 ## 3. Scaling Plan
 
-### Baseline (Current ~500 RPS)
-
-- 3 EKS pods per service per AZ  
-- 1 MSK cluster (3 brokers, 9 partitions/topic)  
-- Aurora: db.r6g.2xlarge (primary + 2 replicas)  
-- Redis: r6g.large  
-- Matching Engine: c6i.2xlarge  
-- Estimated cost: **~$8,000–12,000/month**
-
----
-
-### Scale-Out (Growth ~5000 RPS)
-
-- HPA: 3 → 30 pods per service  
-- MSK brokers: 3 → 9  
-- Partitions: 9 → 90  
-- Aurora read replicas: 2 → 10  
-- Matching Engine: c6i.8xlarge  
+| 🟦 Baseline (500 RPS) | 🟥 Scale-out (5000 RPS) |
+|----------------------|------------------------|
+| **Compute** <br> - 3 EKS pods / service / AZ <br><br> **Streaming** <br> - MSK: 3 brokers, 9 partitions <br><br> **Database** <br> - Aurora: primary + 2 replicas <br> - Redis: r6g.large <br><br> **Matching Engine** <br> - c6i.2xlarge <br><br> **Cost** <br> ~$8k–12k/month | **Compute** <br> - HPA: 3 → 30 pods <br><br> **Streaming** <br> - MSK: 3 → 9 brokers <br> - Partitions: 9 → 90 <br><br> **Database** <br> - Aurora replicas: 2 → 10 <br><br> **Matching Engine** <br> - c6i.8xlarge |
 
 ---
 
